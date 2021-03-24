@@ -1,12 +1,12 @@
 #include <stdio.h>
 
 int main(int argc, char **argv) {
-    int a = 1;
-    int b = 1;
+    int prev2 = 1;
+    int prev1 = 1;
     for(int i=0; i<40; i++) {
-        printf("%d\n", a);
-        int c = a+b;
-        a=b;
-        b=c;
+        printf("%d\n", prev2);
+        int c = prev1+prev2;
+        prev2=prev1;
+        prev1=c;
     }
 }
