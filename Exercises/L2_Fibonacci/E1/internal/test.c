@@ -1,6 +1,12 @@
 #include <stdio.h>
 
+int random(int min, int max) {
+    return rand()%(max-min) + min;
+}
+
 int main(int argc, char **argv) {
+
+
     int prev2 = 1;
     int prev1 = 1;
     for(int i=0; i<40; i++) {

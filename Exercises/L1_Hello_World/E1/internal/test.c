@@ -34,6 +34,10 @@ char *readFile() {
     return buff;
 }
 
+int random(int min, int max) {
+    return rand()%(max-min) + min;
+}
+
 int main(int argc, char **argv) {
     OS os = getOS(argc, argv);
     if(!os) {
