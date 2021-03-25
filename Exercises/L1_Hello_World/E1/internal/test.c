@@ -2,6 +2,14 @@
 #include <stdio.h>
 #include <string.h>
 
+
+#define print(x) strcat(printBuffer, x)
+void correctProgram(char *printBuffer) {
+    print("Hello World!");
+}
+
+
+
 typedef char OS;
 #define windows (OS) 1
 #define mac (OS) 2
@@ -24,11 +32,6 @@ char *readFile() {
 
     fclose(fp);
     return buff;
-}
-
-#define print(x) strcat(printBuffer, x)
-void correctProgram(char *printBuffer) {
-    print("Hello World!");
 }
 
 int main(int argc, char **argv) {
