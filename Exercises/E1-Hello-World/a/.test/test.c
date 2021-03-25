@@ -1,6 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "correct.h"
 
 typedef char OS;
 #define windows (OS) 1
@@ -51,11 +49,6 @@ char *readOutputFile() {
 
 // =====================================================
 
-#define printB(x) strcat(printBuffer, x)
-void correctMain(char *printBuffer) {
-    printB("Hello World!");
-}
-
 int main() {
     OS os = getOS();
     if(!os) return 1;
@@ -64,9 +57,9 @@ int main() {
     *cmd = 0;
     sprintf(cmd, "%s > .test/output.txt", defaultExecutable(os));
 
-    printf("\nyour output: ");
+    printf("\nyour output: \n");
     system(cmd);
-
+    
     char *output = readOutputFile();
     
     char *correct = malloc(1000);
@@ -74,9 +67,9 @@ int main() {
     correctMain(correct);
     
     if(!strcmp(output, correct)) {
-        printf("\nsuccess!\n\n");
+        printf("success!\n\n");
     } else {
-        printf("\ncorrect output: %s\n", correct);
+        printf("correct output: \n%s", correct);
         printf("\nwrong!\n\n");
     }
 
