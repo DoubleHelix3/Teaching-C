@@ -41,7 +41,7 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    char *executable = (os == windows) ? "./a.out" : "a.exe";
+    char *executable = (os == windows) ? "a.exe" : "./a.out";
 
     char *cmd = malloc(50);
     sprintf(cmd, "%s > internal/output.txt", executable);
