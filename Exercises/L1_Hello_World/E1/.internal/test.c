@@ -33,7 +33,7 @@ char *readFile() {
     return buff;
 }
 
-int random(int min, int max) {
+int randomInRange(int min, int max) {
     return rand()%(max-min+1) + min;
 }
 
