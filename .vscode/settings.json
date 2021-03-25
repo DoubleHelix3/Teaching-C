@@ -1,5 +1,8 @@
 {
     "files.associations": {
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "util-random.h": "c",
+        "stdlib.h": "c",
+        "correct.h": "c"
     }
 }
