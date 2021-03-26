@@ -1,7 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
 typedef char OS;
 #define windows (OS) 1
 #define mac (OS) 2
@@ -73,26 +69,4 @@ char *rm(OS os) {
 
 char *defaultCompiler(OS os) {
     return (os == windows) ? "gcc" : "clang";
-}
-
-int main() {
-    OS os = getOS();
-    if(!os) return 1;
-    
-    char *cmd = malloc(200);
-    *cmd = 0;
-    strcat(cmd, "echo s > .test/output.txt");
-    system(cmd);
-
-    *cmd = 0;
-    char *comp = defaultCompiler(os);
-    sprintf(cmd, "%s -c main.c && %s -o temp .test/testInner.c main.o && ", comp, comp);
-    strcat(cmd, executable(os, "temp"));
-    system(cmd);
-
-    *cmd = 0;
-    sprintf(cmd, "%s main.o && %s %s", rm(os), rm(os), executableFile(os, "temp"));
-    system(cmd);
-
-    return 0;
 }

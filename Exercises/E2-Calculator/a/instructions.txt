@@ -1,4 +1,0 @@
-Write the following functions
-int add(int x, int y) : returns the sum of x and y
-int subtract(int x, int y) : returns the difference of x and y
-int multiply(int x, int y) : returns the product of x and y

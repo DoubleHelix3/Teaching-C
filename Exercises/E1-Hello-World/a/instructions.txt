@@ -1,2 +1,0 @@
-Write the following funtion
-void sayHello(): prints the string "Hello World!"

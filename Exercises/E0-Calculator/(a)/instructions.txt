@@ -1,0 +1,3 @@
+Write the following function
+float divide(float x, float y) : returns the quotient of x and y
+if y is 0, have it print "error" and return 0
