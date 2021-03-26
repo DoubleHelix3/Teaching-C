@@ -52,61 +52,32 @@ char *executable(OS os, char *name) {
     return result;
 }
 
+char *rm(OS os) {
+    return (os == windows) ? "del" : "rm";
+}
+
 char *defaultCompiler(OS os) {
     return (os == windows) ? "gcc" : "clang";
 }
 
-// =====================================================
-
-#include <time.h>
-
-void setRandomSeed() {
-    srand(time(0));
-}
-
-int randomInRange(int min, int max) {
-    return rand()%(max-min+1) + min;
-}
-
-// =====================================================
-
-char *readOutputFile() {
-    FILE *fp;
-    char *buff = malloc(255);
-    *buff = 0;
-
-    fp = fopen(".test/output.txt", "r");
-
-    fgets(buff, 255, (FILE*)fp);
-    printf("%s\n", buff );
-
-    fclose(fp);
-    return buff;
-}
-
-// =====================================================
-
 int main() {
     OS os = getOS();
     if(!os) return 1;
-
-    char *cmd = malloc(100);
+    
+    char *cmd = malloc(200);
     *cmd = 0;
-    sprintf(cmd, "%s > .test/output.txt", defaultExecutable(os));
-
-    printf("\nyour output: \n");
+    strcat(cmd, "echo s > .test/output.txt");
     system(cmd);
-    
-    char *output = readOutputFile();
-    
+
     *cmd = 0;
     char *comp = defaultCompiler(os);
     sprintf(cmd, "%s -c main.c && %s -o temp .test/testInner.c main.o && ", comp, comp);
-    concat(cmd, executable(os, "temp"));
-    char *inputToTest = malloc(50);
-    sprintf(inputToTest, " \"%s\"", output);
-    concat(cmd, inputToTest);
+    strcat(cmd, executable(os, "temp"));
     system(cmd);
-    
+
+    *cmd = 0;
+    sprintf(cmd, "%s main.o && %s temp.exe", rm(os), rm(os));
+    system(cmd);
+
     return 0;
 }

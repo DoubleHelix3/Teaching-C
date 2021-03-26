@@ -48,10 +48,11 @@ int main() {
     *correctOut = 0;
     correct(correctOut);
     
-    printf("\nyour output: \n%s", output);
     if(!strcmp(output, correctOut)) {
+        printf("\noutput: \n%s", output);
         printf("\nsuccess!\n\n");
     } else {
+        printf("\nyour output: \n%s", output);
         printf("\ncorrect output: \n%s", correctOut);
         printf("\nwrong!\n\n");
     }
