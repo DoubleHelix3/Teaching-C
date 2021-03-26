@@ -15,7 +15,7 @@ float randomFloatInRange(float min, float max) {
 
 char *correctOutput(float x, float y) {
     if(y==0) {
-        return "y is 0";
+        return "y is 0\n";
     }
     return "";
 }
@@ -66,16 +66,24 @@ void test(float x, float y, float result, int testCaseNo) {
 }
 
 int main() {
+    OS os = getOS();
+
     printf("\n");
-
     int i;
-    for(i=1; i<3; i++) {
-        float x = randomFloatInRange(0,100); 
-        float y = randomFloatInRange(0,100);
-        test(x, y, divide(x,y), i);
-    }
+    for(i=1; i<=3; i++) {
+        float x = randomFloatInRange(0,100);
+        float y = i==3 ? 0.0f : randomFloatInRange(0,100);
+        
+        freopen(".test/output.txt", "a", stdout);
+        float result = divide(x,y);
+        if(os == mac)
+            freopen("/dev/stdout", "a", stdout);
+        else if(os == windows)
+            freopen("CON", "w", stdout);
+        
 
-    test(randomFloatInRange(0,100), 0.0f, 0, i++);
+        test(x, y, result, i);
+    }
 
     return 0;
 }
