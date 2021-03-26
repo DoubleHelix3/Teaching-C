@@ -4,6 +4,23 @@
 
 #include <time.h>
 
+typedef char OS;
+#define windows (OS) 1
+#define mac (OS) 2
+
+OS getOS() {
+    #ifdef _WIN32
+        return windows;
+    #elif __APPLE__
+        return mac;
+    #else
+        return 0;
+        printf("YOUR OS IS NOT SUPPORTED\n")
+    #endif
+}
+
+// =====================================================
+
 void setRandomSeed() {
     srand(time(0));
 }
@@ -40,12 +57,21 @@ int main() {
     int y = randomInRange(1,100);
 
     // change standard out to output.txt
-    freopen(".test/output.txt", "a+", stdout);
+    int old_stdout = dup(1);
+    FILE *fp1 = freopen(".test/output.txt", "a+", stdout);
     int sumOut = add(x,y);
     int diffOut = subtract(x,y);
     int multOut = multiply(x,y);
-    freopen("CON", "w", stdout); 
+    {
+        OS os = getOS();
+        if(os == windows) freopen("CON", "w", stdout); 
+        else {
+            fclose(stdout);
+            FILE *fp2 = fdopen(old_stdout, "w");
+            *stdout = *fp2;                       // Unreliable!
 
+        }
+    }
     //char *output = readOutputFile();
 
     //char *correctOut = malloc(1000);

@@ -52,6 +52,21 @@ char *executable(OS os, char *name) {
     return result;
 }
 
+char *executableFile(OS os, char *name) {
+    char *result = malloc(50);
+    *result = 0;
+    if(os == windows) {
+        strcat(result, name);
+        strcat(result, ".exe");
+    }
+    
+    if(os == mac) {
+        strcat(result, name);
+    }
+
+    return result;
+}
+
 char *rm(OS os) {
     return (os == windows) ? "del" : "rm";
 }
@@ -76,7 +91,7 @@ int main() {
     system(cmd);
 
     *cmd = 0;
-    sprintf(cmd, "%s main.o && %s temp.exe", rm(os), rm(os));
+    sprintf(cmd, "%s main.o && %s %s", rm(os), rm(os), executableFile(os, "temp"));
     system(cmd);
 
     return 0;
