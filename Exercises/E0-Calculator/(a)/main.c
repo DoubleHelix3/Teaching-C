@@ -1,13 +1,10 @@
 #include <stdio.h>
 
-int add(int x, int y) {
-    return 0;
-}
+float divide(float x, float y) {
+    if(y==0) {
+        printf("y is 0\n");
+        return 0.0f;
+    }
 
-int subtract(int x, int y) {
-    return 0;
-}
-
-int multiply(int x, int y) {
-    return 0;
+    return x/y;
 }

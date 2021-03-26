@@ -1,16 +1,14 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 #include "os.h"
 
 int main() {
     OS os = getOS();
     if(!os) return 1;
     
-    // clear the output file
     char *cmd = malloc(200);
-    *cmd = 0;
-    strcat(cmd, "echo s > .test/output.txt");
-    system(cmd);
-    
-    // compile and run testInner1 with the main program
     *cmd = 0;
     char *comp = defaultCompiler(os);
     sprintf(cmd, "%s -c main.c && %s -o temp .test/testInner1.c main.o && ", comp, comp);
@@ -21,6 +19,6 @@ int main() {
     *cmd = 0;
     sprintf(cmd, "%s main.o && %s %s", rm(os), rm(os), executableFile(os, "temp"));
     system(cmd);
-    
+
     return 0;
 }
