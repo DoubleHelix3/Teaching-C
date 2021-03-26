@@ -91,7 +91,7 @@ int main() {
     system(cmd);
 
     *cmd = 0;
-    sprintf(cmd, "%s main.o && %s %s", rm(os), rm(os), executableFile("temp"));
+    sprintf(cmd, "%s main.o && %s %s", rm(os), rm(os), executableFile(os, "temp"));
     system(cmd);
 
     return 0;
