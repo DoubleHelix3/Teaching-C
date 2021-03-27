@@ -7,68 +7,8 @@
 
 #define outputFilePath ".internal/output.txt"
 
-/*
-#include <time.h>
-void setRandomSeed() {srand(time(0));}
-int randomInRange(int min, int max) {return rand()%(max-min+1) + min;}
-float randomFloatInRange(float min, float max) {
-    return (float)rand()/(float)(RAND_MAX/(max-min)) + min;
-}
-
-typedef struct {
-    float x;
-    float y;
-} Input;
-//#define INPUT_VOID
-
-#define NUM_TEST_CASES 3
-Input *generateTestCases() {
-    Input *testCases = malloc(NUM_TEST_CASES*sizeof(Input));
-    testCases[0] = (Input){randomFloatInRange(0,100), randomFloatInRange(0,100)};
-    testCases[1] = (Input){randomFloatInRange(0,100), randomFloatInRange(0,100)};
-    testCases[2] = (Input){0.0f                     , randomFloatInRange(0,100)};
-}
-
-typedef float Output;
-//#define OUTPUT_VOID
-
-// user functions
-float divide(float x, float y);
-
-Output runUserCode(Input input) {
-    return divide(input.x, input.y);
-}
-
-Output getCorrectOutput(Input input) {
-    if(input.y==0) {
-        return 0;
-    }
-    return input.x/input.y;
-}
-
-char *getCorrectPrint(Input input) {
-    if(input.x==0) {
-        return "cannot divide by 0\n";
-    }
-    return "";
-}
-
-char *getPrint() {
-    char *result = readFile(outputFilePath);
-    clearFile(outputFilePath);
-    return result;
-}
-
-void printInput(Input input) {
-    printf("x=%f, y=%f\n", input.x, input.y);
-}
-
-void printOutput(Output output) {
-    printf("%f", (float) output);
-}
-*/
-
 // Printing in color only works on mac for now
+// This is sort of a dumb way to do this, but it's fineeeee
 #ifndef INPUT_VOID
 #ifndef OUTPUT_VOID
 void printTestCase(Input input, Output output, Output correctOutput, char *print, char* correctPrint, int testCaseNo, bool printInColor) {
@@ -82,21 +22,29 @@ void printTestCase(Output output, Output correctOutput, char *print, char* corre
 void printTestCase(char *print, char* correctPrint, int testCaseNo, bool printInColor) {
 #endif
 #endif
-
     bool passed = true;
+    #ifndef OUTPUT_VOID
+    bool isOutputCorrect = areOutputsEqual(output, correctOutput);
+    passed &= isOutputCorrect;
+    #endif
+    bool isPrintCorrect = !strcmp(print, correctPrint);
+    passed &= isPrintCorrect;
 
-    if(printInColor)
-        printf("\033[35;106m test case %d:\033[m\n", testCaseNo);
-    else
-        printf(" test case %d:\n", testCaseNo);
+    {
+        char *extraNewLine = (passed) ? "":"\n";
+        if(printInColor) printf("\033[35;106m test case %d:\033[m%s", testCaseNo, extraNewLine);
+        else printf(" test case %d:\n", testCaseNo);
+    }
 
     #ifndef INPUT_VOID
-    printf(" > input: ");
-    printInput(input);
+    if(!passed) {
+        printf(" > input: ");
+        printInput(input);
+    }
     #endif
 
     #ifndef OUTPUT_VOID
-    if(output != correctOutput) {
+    if(!isOutputCorrect) {
         printf(" > your output: ");
         printOutput(output);
         printf("\n > correct output: ");
@@ -106,7 +54,7 @@ void printTestCase(char *print, char* correctPrint, int testCaseNo, bool printIn
     }
     #endif
 
-    if(strcmp(print, correctPrint)) {
+    if(!isPrintCorrect) {
         char *extraNewLine = (!strcmp(correctPrint, "")) ? "\n" : "";
         printf(" > what you printed: \n    %s\n > what you should've printed: \n    %s\n%s", print, correctPrint, extraNewLine);
         passed = false;

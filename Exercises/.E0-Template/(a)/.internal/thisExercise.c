@@ -20,12 +20,16 @@ Input *generateTestCases() {
     Input *testCases = malloc(NUM_TEST_CASES*sizeof(Input));
     testCases[0] = (Input){randomFloatInRange(0,100), randomFloatInRange(0,100)};
     testCases[1] = (Input){randomFloatInRange(0,100), randomFloatInRange(0,100)};
-    testCases[2] = (Input){0.0f                     , randomFloatInRange(0,100)};
+    testCases[2] = (Input){randomFloatInRange(0,100), 0.0f                     };
     return testCases;
 }
 
 typedef float Output;
 //#define OUTPUT_VOID
+
+bool areOutputsEqual(Output a, Output b) {
+    return (float) a == (float) b;
+}
 
 // user functions
 float divide(float x, float y);
@@ -42,7 +46,7 @@ Output getCorrectOutput(Input input) {
 }
 
 char *getCorrectPrint(Input input) {
-    if(input.x==0) {
+    if(input.y==0) {
         return "cannot divide by 0\n";
     }
     return "";
