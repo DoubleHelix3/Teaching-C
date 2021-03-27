@@ -13,7 +13,6 @@ float randomFloatInRange(float min, float max) {
     return (float)rand()/(float)(RAND_MAX/(max-min)) + min;
 }
 
-
 // user function
 float divide(float x, float y);
 
@@ -21,8 +20,34 @@ typedef struct {
     float x;
     float y;
 } Input;
+//#define INPUT_VOID
 
 typedef float Output;
+//#define OUTPUT_VOID
+
+Output getOutput(Input input) {
+    return divide(input.x, input.y);
+}
+
+Output getCorrectOutput(Input input) {
+    if(input.y==0) {
+        return 0;
+    }
+    return input.x/input.y;
+}
+
+char *getCorrectPrint(Input input) {
+    if(input.x==0) {
+        return "cannot divide by 0\n";
+    }
+    return "";
+}
+
+char *getPrint() {
+    char *result = readFile(".apex/output.txt");
+    clearFile(".apex/output.txt");
+    return result;
+}
 
 void printInput(Input input) {
     printf("x=%f, y=%f\n", input.x, input.y);
@@ -32,32 +57,7 @@ void printOutput(Output output) {
     printf("%f", (float) output);
 }
 
-char *getCorrectOutput(Input input) {
-    if(input.x==0) {
-        return "cannot divide by 0\n";
-    }
-    return "";
-}
-
-char *getOutput() {
-    char *result = readFile(".apex/output.txt");
-    clearFile(".apex/output.txt");
-    return result;
-}
-
-Output getResult(Input input) {
-    return divide(input.x, input.y);
-}
-
-Output getCorrectResult(Input input) {
-    if(input.y==0) {
-        return 0;
-    }
-    return input.x/input.y;
-}
-
-void test(Input input, char *output, char* correctOutput, Output result, Output correctResult, int testCaseNo, bool printInColor) {
-    
+void printTestCase(Input input, Output output, Output correctOutput, char *print, char* correctPrint, int testCaseNo, bool printInColor) {
     bool passed = true;
 
     if(printInColor)
@@ -65,21 +65,25 @@ void test(Input input, char *output, char* correctOutput, Output result, Output 
     else
         printf(" test case %d:\n", testCaseNo);
 
+    #ifndef INPUT_VOID
     printf(" > input: ");
     printInput(input);
+    #endif
 
-    if(result != correctResult) {
-        printf(" > your result: ");
-        printOutput(result);
-        printf("\n > correct result: ");
-        printOutput(correctResult);
+    #ifndef OUTPUT_VOID
+    if(output != correctOutput) {
+        printf(" > your output: ");
+        printOutput(output);
+        printf("\n > correct output: ");
+        printOutput(correctOutput);
         printf("\n\n");
         passed = false;
     }
+    #endif
 
-    if(strcmp(output, correctOutput)) {
-        char *extraNewLine = (!strcmp(correctOutput, "")) ? "\n" : "";
-        printf(" > your output: \n    %s\n > correct output: \n    %s\n%s", output, correctOutput, extraNewLine);
+    if(strcmp(print, correctPrint)) {
+        char *extraNewLine = (!strcmp(correctPrint, "")) ? "\n" : "";
+        printf(" > what you printed: \n    %s\n > what you should've printed: \n    %s\n%s", print, correctPrint, extraNewLine);
         passed = false;
     }
 
@@ -104,18 +108,18 @@ int main() {
         Input input = {x,y};
 
         freopen(".apex/output.txt", "a", stdout);
-        Output result = getResult(input);
+        Output output = getOutput(input);
         if(os == mac)
             freopen("/dev/tty", "a", stdout);
         else if(os == windows)
             freopen("CON", "w", stdout);
-        
-        char *output = getOutput();
-        char *correctOutput = getCorrectOutput(input);
-        Output correctResult = getCorrectResult(input);
 
+        Output correctOutput = getCorrectOutput(input);
+        char *print = getPrint();
+        char *correctPrint = getCorrectPrint(input);
+        
         // windows sucks
-        test(input, output, correctOutput, result, correctResult, i, os==mac);
+        printTestCase(input, output, correctOutput, print, correctPrint, i, os==mac);
     }
 
     return 0;
