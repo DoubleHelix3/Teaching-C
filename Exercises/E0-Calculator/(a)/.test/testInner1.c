@@ -36,13 +36,18 @@ float correctResult(float x, float y) {
 // user function
 float divide(float x, float y);
 
-void test(float x, float y, float result, int testCaseNo) {
+void test(float x, float y, float result, int testCaseNo, bool printInColor) {
     char *out = userOutput(x,y);
     char *correctOut = correctOutput(x,y);
     float correctRes = correctResult(x,y);
 
     bool passed = true;
-    printf("\033[35;106m test case %d:\033[m\n", testCaseNo);
+
+    if(printInColor)
+        printf("\033[35;106m test case %d:\033[m\n", testCaseNo);
+    else
+        printf(" test case %d:\n", testCaseNo);
+
     printf(" > input: x=%f, y=%f\n", x, y);
 
     if(result != correctRes) {
@@ -57,11 +62,15 @@ void test(float x, float y, float result, int testCaseNo) {
         passed = false;
     }
 
-    if(passed) 
-        printf("\033[35;5;%dm%s\033[m", 32, "  success!");
-    else 
-        printf("\033[35;5;%dm%s\033[m", 31, "  failed!");
-    
+    // windows sucks
+    if(printInColor) {
+        if(passed) printf("\033[35;5;%dm%s\033[m", 32, "  success!");
+        else printf("\033[35;5;%dm%s\033[m", 31, "  failed!");
+    } else {
+        if(passed) printf("  success!");
+        else printf("  failed!");
+    }
+
     printf("\n\n\n");;
 }
 
@@ -82,7 +91,7 @@ int main() {
             freopen("CON", "w", stdout);
         
 
-        test(x, y, result, i);
+        test(x, y, result, i, os==mac);
     }
 
     return 0;
