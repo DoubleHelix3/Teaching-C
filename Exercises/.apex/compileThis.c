@@ -11,7 +11,7 @@ int main() {
     char *cmd = malloc(200);
     *cmd = 0;
     char *comp = defaultCompiler(os);
-    sprintf(cmd, "%s -c main.c && %s -o temp .apex/testInner.c main.o && ", comp, comp);
+    sprintf(cmd, "%s -c main.c && %s -o temp .internal/thisExercise.c main.o && ", comp, comp);
     strcat(cmd, executable(os, "temp"));
     system(cmd);
 

@@ -4,8 +4,10 @@
 #include <stdbool.h>
 
 #include "os.h"
-#include "fileio.h"
 
+#define outputFilePath ".internal/output.txt"
+
+/*
 #include <time.h>
 void setRandomSeed() {srand(time(0));}
 int randomInRange(int min, int max) {return rand()%(max-min+1) + min;}
@@ -13,19 +15,27 @@ float randomFloatInRange(float min, float max) {
     return (float)rand()/(float)(RAND_MAX/(max-min)) + min;
 }
 
-// user function
-float divide(float x, float y);
-
 typedef struct {
     float x;
     float y;
 } Input;
 //#define INPUT_VOID
 
+#define NUM_TEST_CASES 3
+Input *generateTestCases() {
+    Input *testCases = malloc(NUM_TEST_CASES*sizeof(Input));
+    testCases[0] = (Input){randomFloatInRange(0,100), randomFloatInRange(0,100)};
+    testCases[1] = (Input){randomFloatInRange(0,100), randomFloatInRange(0,100)};
+    testCases[2] = (Input){0.0f                     , randomFloatInRange(0,100)};
+}
+
 typedef float Output;
 //#define OUTPUT_VOID
 
-Output getOutput(Input input) {
+// user functions
+float divide(float x, float y);
+
+Output runUserCode(Input input) {
     return divide(input.x, input.y);
 }
 
@@ -44,8 +54,8 @@ char *getCorrectPrint(Input input) {
 }
 
 char *getPrint() {
-    char *result = readFile(".apex/output.txt");
-    clearFile(".apex/output.txt");
+    char *result = readFile(outputFilePath);
+    clearFile(outputFilePath);
     return result;
 }
 
@@ -56,8 +66,23 @@ void printInput(Input input) {
 void printOutput(Output output) {
     printf("%f", (float) output);
 }
+*/
 
+// Printing in color only works on mac for now
+#ifndef INPUT_VOID
+#ifndef OUTPUT_VOID
 void printTestCase(Input input, Output output, Output correctOutput, char *print, char* correctPrint, int testCaseNo, bool printInColor) {
+#else
+void printTestCase(Input input, char *print, char* correctPrint, int testCaseNo, bool printInColor) {
+#endif
+#else
+#ifndef OUTPUT_VOID
+void printTestCase(Output output, Output correctOutput, char *print, char* correctPrint, int testCaseNo, bool printInColor) {
+#else
+void printTestCase(char *print, char* correctPrint, int testCaseNo, bool printInColor) {
+#endif
+#endif
+
     bool passed = true;
 
     if(printInColor)
@@ -101,25 +126,65 @@ void printTestCase(Input input, Output output, Output correctOutput, char *print
 int main() {
     OS os = getOS();
 
-    printf("\n");
-    for(int i=1; i<=3; i++) {
-        float x = randomFloatInRange(0,100);
-        float y = i==3 ? 0.0f : randomFloatInRange(0,100);
-        Input input = {x,y};
+    #ifndef INPUT_VOID
+    Input* testCases = generateTestCases();
+    #endif
 
-        freopen(".apex/output.txt", "a", stdout);
-        Output output = getOutput(input);
+    printf("\n");
+    for(int i=0; i<NUM_TEST_CASES; i++) {
+        #ifndef INPUT_VOID
+        Input input = testCases[i];
+        #endif
+
+        freopen(outputFilePath, "a", stdout);
+        
+        #ifndef INPUT_VOID
+        #ifndef OUTPUT_VOID
+        Output output = runUserCode(input);
+        #else
+        runUserCode(input);
+        #endif
+        #else
+        #ifndef OUTPUT_VOID
+        Output output = runUserCode();
+        #else
+        runUserCode();
+        #endif
+        #endif
+
         if(os == mac)
             freopen("/dev/tty", "a", stdout);
         else if(os == windows)
             freopen("CON", "w", stdout);
 
+        #ifndef INPUT_VOID
+        #ifndef OUTPUT_VOID
         Output correctOutput = getCorrectOutput(input);
+        #else
+        getCorrectOutput(input);
+        #endif
+        #else
+        #ifndef OUTPUT_VOID
+        Output correctOutput = getCorrectOutput();
+        #endif
+        #endif
+
         char *print = getPrint();
         char *correctPrint = getCorrectPrint(input);
         
-        // windows sucks
-        printTestCase(input, output, correctOutput, print, correctPrint, i, os==mac);
+        #ifndef INPUT_VOID
+        #ifndef OUTPUT_VOID
+        printTestCase(input, output, correctOutput, print, correctPrint, i+1, os==mac);
+        #else
+        printTestCase(input, print, correctPrint,  i+1, os==mac) {
+        #endif
+        #else
+        #ifndef OUTPUT_VOID
+        printTestCase(output, correctOutput, print, correctPrint, i+1, os==mac) {
+        #else
+        printTestCase(print, correctPrint, i+1, os==mac) {
+        #endif
+        #endif
     }
 
     return 0;

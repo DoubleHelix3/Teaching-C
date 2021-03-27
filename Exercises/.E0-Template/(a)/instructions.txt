@@ -5,5 +5,5 @@ float divide(float x, float y)
 
 
 to test your program, compile the compileThis.c file in the .apex directory
-ex: clang -o test .apex/compileThis.c
+ex: clang -o test ../../.apex/compileThis.c
 then simply run the executable whenever you want to test your code 
