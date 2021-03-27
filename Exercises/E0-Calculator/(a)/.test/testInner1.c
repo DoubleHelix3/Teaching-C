@@ -13,20 +13,20 @@ float randomFloatInRange(float min, float max) {
     return (float)rand()/(float)(RAND_MAX/(max-min)) + min;
 }
 
-char *correctOutput(float x, float y) {
+char *getCorrectOutput(float x, float y) {
     if(y==0) {
         return "y is 0\n";
     }
     return "";
 }
 
-char *userOutput(float x, float y) {
+char *getOutput(float x, float y) {
     char *result = readFile(".test/output.txt");
     clearFile(".test/output.txt");
     return result;
 }
 
-float correctResult(float x, float y) {
+float getCorrectResult(float x, float y) {
     if(y==0) {
         return 0;
     }
@@ -36,11 +36,11 @@ float correctResult(float x, float y) {
 // user function
 float divide(float x, float y);
 
-void test(float x, float y, float result, int testCaseNo, bool printInColor) {
-    char *out = userOutput(x,y);
-    char *correctOut = correctOutput(x,y);
-    float correctRes = correctResult(x,y);
-
+void test(  
+    float x, float y, char *output, char* correctOutput, float result, float correctResult, 
+    int testCaseNo, bool printInColor
+    ) {
+    
     bool passed = true;
 
     if(printInColor)
@@ -50,14 +50,14 @@ void test(float x, float y, float result, int testCaseNo, bool printInColor) {
 
     printf(" > input: x=%f, y=%f\n", x, y);
 
-    if(result != correctRes) {
-        printf(" > your result: %f\n > correct result: %f \n", result, correctRes);
+    if(result != correctResult) {
+        printf(" > your result: %f\n > correct result: %f \n", result, correctResult);
         passed = false;
     }
 
-    if(strcmp(out, correctOut)) {
-        printf(" > your output: \n    %s\n > correct output: \n    %s\n%s", out, correctOut, 
-        (*correctOut == 0) ? "" : "\n"
+    if(strcmp(output, correctOutput)) {
+        printf(" > your output: \n    %s\n > correct output: \n    %s\n%s", output, correctOutput, 
+        (*correctOutput == 0) ? "" : "\n"
         );
         passed = false;
     }
@@ -86,12 +86,16 @@ int main() {
         freopen(".test/output.txt", "a", stdout);
         float result = divide(x,y);
         if(os == mac)
-            freopen("/dev/stdout", "a", stdout);
+            freopen("/dev/tty", "a", stdout);
         else if(os == windows)
             freopen("CON", "w", stdout);
         
+        char *output = getOutput(x,y);
+        char *correctOutput = getCorrectOutput(x,y);
+        float correctResult = getCorrectResult(x,y);
 
-        test(x, y, result, i, os==mac);
+        // windows sucks
+        test(x, y, output, correctOutput, result, correctResult, i, os==mac);
     }
 
     return 0;
