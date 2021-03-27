@@ -1,0 +1,7 @@
+write a function that's prints out "Hello World"
+void hello()
+
+
+to test your program, compile the compileThis.c file in the .apex directory
+ex: clang -o test .apex/compileThis.c
+then simply run the executable whenever you want to test your code 
