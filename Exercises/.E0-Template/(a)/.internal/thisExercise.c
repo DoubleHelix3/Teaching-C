@@ -3,8 +3,8 @@
 #include <string.h>
 #include <stdbool.h>
 
-#include "../../../.apex/fileio.h"
-#include "../../../.apex/random.h"
+#include "../../../../.apex/fileio.h"
+#include "../../../../.apex/random.h"
 
 #define outputFilePath ".internal/output.txt"
 
@@ -62,4 +62,4 @@ void printOutput(Output output) {
     printf("%f", (float) output);
 }
 
-#include "../../../.apex/testInner.h"
+#include "../../../../.apex/testInner.h"
