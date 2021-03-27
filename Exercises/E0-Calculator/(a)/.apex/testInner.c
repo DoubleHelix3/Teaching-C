@@ -15,14 +15,14 @@ float randomFloatInRange(float min, float max) {
 
 char *getCorrectOutput(float x, float y) {
     if(y==0) {
-        return "y is 0\n";
+        return "cannot divide by 0\n";
     }
     return "";
 }
 
 char *getOutput(float x, float y) {
-    char *result = readFile(".test/output.txt");
-    clearFile(".test/output.txt");
+    char *result = readFile(".apex/output.txt");
+    clearFile(".apex/output.txt");
     return result;
 }
 
@@ -36,10 +36,7 @@ float getCorrectResult(float x, float y) {
 // user function
 float divide(float x, float y);
 
-void test(  
-    float x, float y, char *output, char* correctOutput, float result, float correctResult, 
-    int testCaseNo, bool printInColor
-    ) {
+void test(float x, float y, char *output, char* correctOutput, float result, float correctResult, int testCaseNo, bool printInColor) {
     
     bool passed = true;
 
@@ -51,14 +48,13 @@ void test(
     printf(" > input: x=%f, y=%f\n", x, y);
 
     if(result != correctResult) {
-        printf(" > your result: %f\n > correct result: %f \n", result, correctResult);
+        printf(" > your result: %f\n > correct result: %f \n\n", result, correctResult);
         passed = false;
     }
 
     if(strcmp(output, correctOutput)) {
-        printf(" > your output: \n    %s\n > correct output: \n    %s\n%s", output, correctOutput, 
-        (*correctOutput == 0) ? "" : "\n"
-        );
+        char *extraNewLine = (!strcmp(correctOutput, "")) ? "\n" : "";
+        printf(" > your output: \n    %s\n > correct output: \n    %s\n%s", output, correctOutput, extraNewLine);
         passed = false;
     }
 
@@ -83,7 +79,7 @@ int main() {
         float x = randomFloatInRange(0,100);
         float y = i==3 ? 0.0f : randomFloatInRange(0,100);
         
-        freopen(".test/output.txt", "a", stdout);
+        freopen(".apex/output.txt", "a", stdout);
         float result = divide(x,y);
         if(os == mac)
             freopen("/dev/tty", "a", stdout);

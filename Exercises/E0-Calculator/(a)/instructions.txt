@@ -1,3 +1,9 @@
-Write the following function
-float divide(float x, float y) : returns the quotient of x and y
-if y is 0, have it print "error" and return 0
+write a function that takes in two floats returns their quotient
+if the denominator is 0, have it print "cannot divide by 0" and return 0
+
+float divide(float x, float y)
+
+
+to test your program, compile the compileThis.c file in the .apex directory
+ex: clang -o test .apex/compileThis.c
+then simply run the executable whenever you want to test your code 
