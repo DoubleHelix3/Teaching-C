@@ -13,30 +13,50 @@ float randomFloatInRange(float min, float max) {
     return (float)rand()/(float)(RAND_MAX/(max-min)) + min;
 }
 
-char *getCorrectOutput(float x, float y) {
-    if(y==0) {
+
+// user function
+float divide(float x, float y);
+
+typedef struct {
+    float x;
+    float y;
+} Input;
+
+typedef float Output;
+
+void printInput(Input input) {
+    printf("x=%f, y=%f\n", input.x, input.y);
+}
+
+void printOutput(Output output) {
+    printf("%f", (float) output);
+}
+
+char *getCorrectOutput(Input input) {
+    if(input.x==0) {
         return "cannot divide by 0\n";
     }
     return "";
 }
 
-char *getOutput(float x, float y) {
+char *getOutput() {
     char *result = readFile(".apex/output.txt");
     clearFile(".apex/output.txt");
     return result;
 }
 
-float getCorrectResult(float x, float y) {
-    if(y==0) {
-        return 0;
-    }
-    return x/y;
+Output getResult(Input input) {
+    return divide(input.x, input.y);
 }
 
-// user function
-float divide(float x, float y);
+Output getCorrectResult(Input input) {
+    if(input.y==0) {
+        return 0;
+    }
+    return input.x/input.y;
+}
 
-void test(float x, float y, char *output, char* correctOutput, float result, float correctResult, int testCaseNo, bool printInColor) {
+void test(Input input, char *output, char* correctOutput, Output result, Output correctResult, int testCaseNo, bool printInColor) {
     
     bool passed = true;
 
@@ -45,10 +65,15 @@ void test(float x, float y, char *output, char* correctOutput, float result, flo
     else
         printf(" test case %d:\n", testCaseNo);
 
-    printf(" > input: x=%f, y=%f\n", x, y);
+    printf(" > input: ");
+    printInput(input);
 
     if(result != correctResult) {
-        printf(" > your result: %f\n > correct result: %f \n\n", result, correctResult);
+        printf(" > your result: ");
+        printOutput(result);
+        printf("\n > correct result: ");
+        printOutput(correctResult);
+        printf("\n\n");
         passed = false;
     }
 
@@ -58,7 +83,6 @@ void test(float x, float y, char *output, char* correctOutput, float result, flo
         passed = false;
     }
 
-    // windows sucks
     if(printInColor) {
         if(passed) printf("\033[35;5;%dm%s\033[m", 32, "  success!");
         else printf("\033[35;5;%dm%s\033[m", 31, "  failed!");
@@ -74,24 +98,24 @@ int main() {
     OS os = getOS();
 
     printf("\n");
-    int i;
-    for(i=1; i<=3; i++) {
+    for(int i=1; i<=3; i++) {
         float x = randomFloatInRange(0,100);
         float y = i==3 ? 0.0f : randomFloatInRange(0,100);
-        
+        Input input = {x,y};
+
         freopen(".apex/output.txt", "a", stdout);
-        float result = divide(x,y);
+        Output result = getResult(input);
         if(os == mac)
             freopen("/dev/tty", "a", stdout);
         else if(os == windows)
             freopen("CON", "w", stdout);
         
-        char *output = getOutput(x,y);
-        char *correctOutput = getCorrectOutput(x,y);
-        float correctResult = getCorrectResult(x,y);
+        char *output = getOutput();
+        char *correctOutput = getCorrectOutput(input);
+        Output correctResult = getCorrectResult(input);
 
         // windows sucks
-        test(x, y, output, correctOutput, result, correctResult, i, os==mac);
+        test(input, output, correctOutput, result, correctResult, i, os==mac);
     }
 
     return 0;
