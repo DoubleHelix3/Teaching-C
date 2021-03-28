@@ -4,8 +4,16 @@
 #include <stdbool.h>
 
 #include "os.h"
+#include "fileio.h"
 
 #define outputFilePath ".internal/output.txt"
+
+char *getPrint() {
+    char *result = readFile(outputFilePath);
+    clearFile(outputFilePath);
+    return result;
+}
+
 
 // Printing in color only works on mac for now
 // This is sort of a dumb way to do this, but it's fineeeee
@@ -118,8 +126,12 @@ int main() {
         #endif
 
         char *print = getPrint();
+        #ifndef INPUT_VOID
         char *correctPrint = getCorrectPrint(input);
-        
+        #else
+        char *correctPrint = getCorrectPrint();
+        #endif
+
         #ifndef INPUT_VOID
         #ifndef OUTPUT_VOID
         printTestCase(input, output, correctOutput, print, correctPrint, i+1, os==mac);
@@ -130,7 +142,7 @@ int main() {
         #ifndef OUTPUT_VOID
         printTestCase(output, correctOutput, print, correctPrint, i+1, os==mac) {
         #else
-        printTestCase(print, correctPrint, i+1, os==mac) {
+        printTestCase(print, correctPrint, i+1, os==mac);
         #endif
         #endif
     }

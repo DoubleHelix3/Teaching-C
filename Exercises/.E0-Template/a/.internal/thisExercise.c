@@ -3,7 +3,6 @@
 #include <string.h>
 #include <stdbool.h>
 
-#include "../../../../.apex/fileio.h"
 #include "../../../../.apex/random.h"
 
 #define outputFilePath ".internal/output.txt"
@@ -50,12 +49,6 @@ char *getCorrectPrint(Input input) {
         return "cannot divide by 0\n";
     }
     return "";
-}
-
-char *getPrint() {
-    char *result = readFile(outputFilePath);
-    clearFile(outputFilePath);
-    return result;
 }
 
 void printInput(Input input) {

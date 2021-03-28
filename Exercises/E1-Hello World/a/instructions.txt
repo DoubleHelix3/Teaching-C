@@ -1,0 +1,10 @@
+write a function that prints "Hello World!" followed by a new line character
+for the following challenges, assume that every statement it wants you to print is followed by a new line character
+
+void hello()
+
+
+to test your program, compile the compileThis.c file in the .apex directory 
+clang -o test ../../../.apex/compileThis.c
+gcc -o test ../../../.apex/compileThis.c
+then simply run the executable whenever you want to test your code 
