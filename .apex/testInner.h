@@ -38,7 +38,7 @@ void printTestCase(char *print, char* correctPrint, int testCaseNo, bool printIn
     bool isPrintCorrect = !strcmp(print, correctPrint);
     passed &= isPrintCorrect;
 
-    {
+    if(NUM_TEST_CASES != 1) {
         char *extraNewLine = (passed) ? "":"\n";
         if(printInColor) printf("\033[35;106m test case %d:\033[m%s", testCaseNo, extraNewLine);
         else printf(" test case %d:\n", testCaseNo);
@@ -53,14 +53,15 @@ void printTestCase(char *print, char* correctPrint, int testCaseNo, bool printIn
 
     #ifndef OUTPUT_VOID
     if(!isOutputCorrect) {
-        printf(" > your output: ");
+        printf("\n > your output: ");
         printOutput(output);
         printf("\n > correct output: ");
         printOutput(correctOutput);
-        printf("\n\n");
         passed = false;
     }
     #endif
+
+    printf("\n");
 
     if(!isPrintCorrect) {
         char *extraNewLine = (!strcmp(correctPrint, "")) ? "\n" : "";
@@ -86,7 +87,8 @@ int main() {
     Input* testCases = generateTestCases();
     #endif
 
-    printf("\n");
+    printf("\ncompiled successfully!\n");
+    printf("running all functions...\n\n");
     for(int i=0; i<NUM_TEST_CASES; i++) {
         #ifndef INPUT_VOID
         Input input = testCases[i];

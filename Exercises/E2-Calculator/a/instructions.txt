@@ -1,0 +1,14 @@
+write a function that takes 2 integers and returns their sum
+int add(int x, int y)
+
+write a function that takes 2 integers and returns their difference
+int subtract(int x, int y)
+
+write a function that takes 2 integers and returns their product
+int multiply(int x, int y)
+
+
+to test your program, compile the compileThis.c file in the .apex directory 
+clang -o test ../../../.apex/compileThis.c
+gcc -o test ../../../.apex/compileThis.c
+then simply run the executable whenever you want to test your code 

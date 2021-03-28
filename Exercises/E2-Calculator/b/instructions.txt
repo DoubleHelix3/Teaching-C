@@ -1,0 +1,16 @@
+write a function that takes 2 integers and returns their quotient truncated to the nearest integer
+do not worry about the case where y is 0 in this part
+int truncatedDivision(int x, int y)
+
+write a function that takes 2 integers and returns the remainder you get when dividing x by y after long division
+int remainderAfterDivision(int x, int y)
+
+write a function that takes 2 integers and prints "%d r %d" 
+where the first %d is their quotient truncated and the second %d is their remainder
+void printDivisionWithRemainder(int x, int y)
+
+
+to test your program, compile the compileThis.c file in the .apex directory 
+clang -o test ../../../.apex/compileThis.c
+gcc -o test ../../../.apex/compileThis.c
+then simply run the executable whenever you want to test your code 
