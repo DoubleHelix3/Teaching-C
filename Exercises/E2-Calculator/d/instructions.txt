@@ -1,0 +1,20 @@
+write a function that calculates the area of a triangle
+double triangleArea(double base, double height)
+
+write a function that calculates the circumference of a circle
+double circumference(double radius)
+
+write a function that calculates the area of a circle
+double circleArea(double radius)
+
+write a function that calculates the area of an ellipse
+double ellipseArea(double semiMajorAxis, double semiMinorAxis)
+
+write a function that calculates the volume of a sphere
+double sphereVolume(double radius)
+
+
+to test your program, compile the compileThis.c file in the .apex directory 
+clang -o test ../../../.apex/compileThis.c
+gcc -o test ../../../.apex/compileThis.c
+then simply run the executable whenever you want to test your code 

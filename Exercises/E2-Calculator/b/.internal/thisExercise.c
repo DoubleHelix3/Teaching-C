@@ -55,11 +55,11 @@ char *getCorrectPrint(Input input) {
 }
 
 void printInput(Input input) {
-    printf("\n   x: %d \n   y: %d\n", input.x, input.y);
+    printf("\n    x: %d \n    y: %d\n", input.x, input.y);
 }
 
 void printOutput(Output output) {
-    printf("\n   truncated quotient: %d\n   remainder: %d\n", output.quotientTrunc, output.remainder);
+    printf("\n    truncated quotient: %d\n    remainder: %d\n", output.quotientTrunc, output.remainder);
 }
 
 #include "../../../../.apex/testInner.h"
