@@ -5,6 +5,7 @@
 
 #include "os.h"
 #include "fileio.h"
+#include "stringUtil.h"
 
 #define outputFilePath ".internal/output.txt"
 
@@ -65,7 +66,8 @@ void printTestCase(char *print, char* correctPrint, int testCaseNo, bool printIn
 
     if(!isPrintCorrect) {
         char *extraNewLine = (!strcmp(correctPrint, "")) ? "\n" : "";
-        printf(" > what you printed: \n    %s\n > what you should've printed: \n    %s\n%s", print, correctPrint, extraNewLine);
+        printf(" > what you printed: \n    %s\n > what you should've printed: \n    %s\n%s", 
+        replace(print, "\n", "\n    "), replace(correctPrint, "\n", "\n    "), extraNewLine);
         passed = false;
     }
 
@@ -115,14 +117,10 @@ int main() {
         else if(os == windows)
             freopen("CON", "w", stdout);
 
-        #ifndef INPUT_VOID
         #ifndef OUTPUT_VOID
+        #ifndef INPUT_VOID
         Output correctOutput = getCorrectOutput(input);
         #else
-        getCorrectOutput(input);
-        #endif
-        #else
-        #ifndef OUTPUT_VOID
         Output correctOutput = getCorrectOutput();
         #endif
         #endif
@@ -138,11 +136,11 @@ int main() {
         #ifndef OUTPUT_VOID
         printTestCase(input, output, correctOutput, print, correctPrint, i+1, os==mac);
         #else
-        printTestCase(input, print, correctPrint,  i+1, os==mac) {
+        printTestCase(input, print, correctPrint,  i+1, os==mac);
         #endif
         #else
         #ifndef OUTPUT_VOID
-        printTestCase(output, correctOutput, print, correctPrint, i+1, os==mac) {
+        printTestCase(output, correctOutput, print, correctPrint, i+1, os==mac);
         #else
         printTestCase(print, correctPrint, i+1, os==mac);
         #endif

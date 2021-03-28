@@ -1,0 +1,14 @@
+write a function to test if an integer is negative
+bool isNegative(int x)
+
+write a function that checks if two integers are the same sign
+bool areSameSign(int x, int y)
+
+write a function that takes in two points and checks if they're in the same quadrant
+bool areSameQuadrant(float x1, float y1, float x2, float y2)
+
+
+to test your program, compile the compileThis.c file in the .apex directory 
+clang -o test ../../../.apex/compileThis.c
+gcc -o test ../../../.apex/compileThis.c
+then simply run the executable whenever you want to test your code 

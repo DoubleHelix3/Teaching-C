@@ -1,0 +1,31 @@
+write a function that tells you what stage of life you are in
+specifically: 
+if you're less than 3, print "You are a baby owo"
+if you're between 3 and 13, print "You are a child :)"
+if you're between 13 and 19, print "You are a teenager"
+if you're between 20 and 49, print "You are an adult! -.-"
+if you're older than 49, print "You are old :("
+
+consider the edge cases where the user inputs a non realistic age,
+if the age entered is negative, print "How are you a negative age?"
+if the age entered greater than 120, print "How are you older than the oldest person alive!" 
+do not print anything else for the edge cases
+
+void printLifeStage(int age)
+
+
+write a function that tells you what you can legally do at an age in the US
+specifically: 
+if you're able to drive, print "You can drive!"
+if you're able to vote, print "You can vote!"
+if you're able to drink, print "You can drink!"
+
+handle the edge cases for this function the same way as the other funtion
+
+void printLegalActivities(int age)
+
+
+to test your program, compile the compileThis.c file in the .apex directory 
+clang -o test ../../../.apex/compileThis.c
+gcc -o test ../../../.apex/compileThis.c
+then simply run the executable whenever you want to test your code 
