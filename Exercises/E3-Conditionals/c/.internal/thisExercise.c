@@ -34,8 +34,8 @@ void printLegalActivities(int age);
 void printLifeStage(int age);
 
 void runUserCode(Input input) {
-    printLegalActivities(input.age);
     printLifeStage(input.age);
+    printLegalActivities(input.age);
 }
 
 char *getCorrectPrint(Input input) {
