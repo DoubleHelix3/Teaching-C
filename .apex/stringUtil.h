@@ -9,7 +9,7 @@ char* replace(const char* s, const char* replace, const char* replacement) {
   
     // Counting the number of times old word
     // occur in the string
-    for (i = 0; s[i] != '\0'; i++) {
+    for (i=0; s[i] != '\0'; i++) {
         if (strstr(&s[i], replace) == &s[i]) {
             count++;
   
@@ -19,12 +19,12 @@ char* replace(const char* s, const char* replace, const char* replacement) {
     }
   
     // Making new string of enough length
-    result = (char *)malloc(i+count*(replacementLength - replaceLength)+1);
+    result = (char *) malloc(i+count*(replacementLength - replaceLength)+1);
   
     i = 0;
-    while (*s) {
+    while(*s) {
         // compare the substring with the result
-        if (strstr(s, replace) == s) {
+        if(strstr(s, replace) == s) {
             strcpy(&result[i], replacement);
             i += replacementLength;
             s += replaceLength;
