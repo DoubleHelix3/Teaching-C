@@ -41,6 +41,7 @@ char *getCorrectPrint(Input input) {
         strcat(buffer, " ");
     }
     strcat(buffer, input.str);
+    strcat(buffer, "\n");
     return buffer;
 }
 

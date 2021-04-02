@@ -39,7 +39,8 @@ Output runUserCode(Input input) {
 }
 
 Output getCorrectOutput(Input input) {
-    int a=1;
+    if(input.n<1) return (Output) {0};
+    int a=0;
     int b=1;
     for(int i=0; i<input.n; i++) {
         int c = a + b;
@@ -54,7 +55,7 @@ char *getCorrectPrint(Input input) {
 }
 
 void printInput(Input input) {
-    printf("\n   x: %d\n", input.n);
+    printf("\n   n: %d\n", input.n);
 }
 
 void printOutput(Output output) {
