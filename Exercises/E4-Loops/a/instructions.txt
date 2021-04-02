@@ -1,0 +1,8 @@
+write a function that takes in an integer n
+this function should print the numbers from 1 to n in a comma separated list
+void printNumbers(int n)
+
+to test your program, compile the compileThis.c file in the .apex directory 
+clang -o test ../../../.apex/compileThis.c
+gcc -o test ../../../.apex/compileThis.c
+then simply run the executable whenever you want to test your code 

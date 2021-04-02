@@ -1,0 +1,8 @@
+write a function that takes in a string str and an integer n
+the function will print the string str n times
+void echo(char *str, int n)
+
+to test your program, compile the compileThis.c file in the .apex directory 
+clang -o test ../../../.apex/compileThis.c
+gcc -o test ../../../.apex/compileThis.c
+then simply run the executable whenever you want to test your code 

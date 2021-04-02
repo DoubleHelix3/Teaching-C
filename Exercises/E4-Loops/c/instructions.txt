@@ -1,0 +1,11 @@
+write a function that calculates the nth fibonacci number
+the sequence goes 1,1,2,3,5,8,13,... and starts at n=1
+if n is not an acceptable input, return 0
+
+int fibonacci(int n)
+
+
+to test your program, compile the compileThis.c file in the .apex directory 
+clang -o test ../../../.apex/compileThis.c
+gcc -o test ../../../.apex/compileThis.c
+then simply run the executable whenever you want to test your code 
