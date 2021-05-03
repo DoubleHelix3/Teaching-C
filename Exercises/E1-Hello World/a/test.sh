@@ -18,7 +18,7 @@ if ! test -f "correct"; then
 fi
 
 
-echo "\033[33mCompiling your program...\n\033[0;0m"
+echo "Testing your program..."
 
 ./input.sh > input.txt
 
@@ -27,18 +27,16 @@ if ! clang -o user main.c; then
 	exit 1
 fi
 
-echo "\033[33m\nCompiled successfully!\033[0;0m"
+echo "Compiled successfully!\n"
 
 
 while read f; do
-	echo "\n=====================\n"
+	printf "$f" | ./user > output.txt
+	printf "$f" | ./correct > correct-output.txt
 
-	printf "$f" | xargs ./user > output.txt
-	printf "$f" | xargs ./correct > correct-output.txt
-
-	printf "\033[33mYour output: \n\033[0;0m"
+	printf "Your output: \n\033[0;33m"
 	cat output.txt
-	printf "\033[33m\nCorrect output: \n\033[0;0m"
+	printf "\033[0m\nCorrect output: \n\033[0;33m"
 	cat correct-output.txt
 	printf "\n"
 
