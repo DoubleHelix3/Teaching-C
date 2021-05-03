@@ -9,7 +9,7 @@ OS getOS() {
         return mac;
     #else
         return 0;
-        printf("YOUR OS IS NOT SUPPORTED\n")
+        printf("YOUR OS IS NOT SUPPORTED\n");
     #endif
 }
 
