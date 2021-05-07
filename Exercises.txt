@@ -1,0 +1,99 @@
+Exercises
+
+1. Hello World
+			Write a program that prints "Hello World!"
+
+2. Calculator
+			a. Write functions that takes in 2 integers and returns their:
+						- sum
+						- difference
+						- product
+
+			b. Write functions that takes in 2 integers and returns their:
+						- quotient after long division
+						- remainder after long division
+			Write another function that takes in two integer and prints
+			the quotient followed by "r" followed by the remainder
+							- (9,2) -> 4r1
+
+			c. Write a function that takes in two floats and returns their
+			quotient.  If y is 0, print "cannot divide by 0" and return 0
+
+			d. Write functions that calculates the:
+						- area of a triangle
+								- double triangleArea(double base, double height)
+						- circumference of a circle
+						- area of a circle
+						- area of an ellipse
+								- double ellipseArea(double semiMajorAxis, semiMinorAxis)
+						- sphereVolume
+
+3. Booleans
+			a. Write a function to test if an integer is negative.
+			Write a function that checks if two integers are the same sign.
+			Write a function that takes in two points, and checks out if they're
+			in the same quadrant.
+
+			b. Implement the following functions: xor, nand, implies
+
+			c. Write a function that tells you what stage of life you are in.
+						- void printLifeStage(int age)
+						- if you're less than 3, print "You are a baby owo"
+						- if you're between 3 and 13, print "You are a child :)"
+						- if you're between 13 and 19, print "You are a teenager"
+						- if you're between 20 and 49, print "You are an adult! -.-"
+						- if you're older than 49, print "You are old :("
+			Consider the edge cases where the user inputs a non realistic age:
+						- if the age entered is negative, print "How are you a negative
+						age?"
+						- if the age entered greater than 120, print "How are you older
+						than the oldest person alive!" 
+						- do not print anything else for the edge cases
+			Write a function that tells you what you can legally do at an age
+			in the US 
+						- if you're able to drive, print "You can drive!"
+						- if you're able to vote, print "You can vote!"
+						- if you're able to drink, print "You can drink!"
+			Handle the edge cases in the same way
+
+4. Loops
+			a. Write a program that takes in an integer n
+						- this function should print the numbers from 1 to n
+						in a comma separated list
+						
+			b. Write a function that takes in a string str and an integer n
+						- the function will print the string str n times
+						- void echo(char *str, int n)
+
+			c. Write a function that calculates the nth fibonacci number.  If
+			n is not an acceptable input, return 0. 
+
+			d. Write a program that takes in an integer n and printsa tower
+			of height n
+					- 1 ->
+					*
+					- 5 ->
+					*
+					**
+					***
+					****
+					*****
+
+5. abacabadabacaba
+			Print the following sequence:
+			a
+			aba
+			abacaba
+			abacabadabacaba
+			abacabadabacabaeabacabadabacaba
+			...
+			go until the term has the letter z
+
+6. Numbers to Words
+			Write a program that takes in a number and prints the number as a
+			word (for numbers less than a million)
+					- 129 -> one hundred and twenty-nine
+					- 923123 -> nine hundred and twenty-three thousand one hundred
+					and twenty-three
+
+7. 
